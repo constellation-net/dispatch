@@ -1,0 +1,19 @@
+services:
+  dispatch:
+    container_name: dispatch
+    image: ghcr.io/constellation-net/dispatch:latest
+    ports:
+      - "25:25"
+    environment:
+      DISPATCH_INTERVAL: "60"
+      RELAY_HOST: dispatch.starsystem.dev
+      RELAY_PORT: "25"
+      RELAY_USERNAME: lorem
+      RELAY_PASSWORD: bcrypt-hash
+      UPSTREAM_HOST: smtp.gmail.com
+      UPSTREAM_PORT: "587"
+      UPSTREAM_USER: gmail
+      UPSTREAM_PASS: password
+      UPSTREAM_FROM: noreply@starsystem.dev
+      UPSTREAM_REPLYTO: admin@starsystem.dev
+    restart: always
