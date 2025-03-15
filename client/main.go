@@ -6,6 +6,7 @@ import (
 
 	"github.com/constellation-net/dispatch/env"
 
+	"github.com/emersion/go-sasl"
 	"github.com/emersion/go-smtp"
 )
 
@@ -75,6 +76,13 @@ func (s *Scheduler) SendAll() error {
 			panic(err)
 		}
 	}()
+
+	// Authenticate the client
+	a := sasl.NewPlainClient("dispatch", env.Vars.Upstream.Username, env.Vars.Upstream.Password)
+	err = c.Auth(a)
+	if err != nil {
+		return err
+	}
 
 	// Pull each message from the queue one-by-one
 	for i := 0; i < s.queue.Len(); i++ {
