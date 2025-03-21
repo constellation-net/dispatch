@@ -1,8 +1,8 @@
 FROM golang:1.23.2 AS builder
-# See why root is needed here: https://groups.google.com/g/golang-nuts/c/LZbM2WlZoJM
 USER root
 COPY . /app
 WORKDIR /app
+RUN chown -R 0:0 /app
 RUN go build -o main .
 
 # Multi-stage builds make the final Docker image much more space-efficient by removing unnecessary bloat (e.g: to Go compiler)
