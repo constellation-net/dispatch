@@ -1,8 +1,6 @@
 FROM golang:1.23.2 AS builder
-USER root
 COPY . /app
 WORKDIR /app
-RUN chown -R 0:0 /app
 RUN git status
 RUN go build -v -o main .
 
