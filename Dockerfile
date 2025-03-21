@@ -1,6 +1,7 @@
 FROM golang:1.23.2 AS builder
-# See why --chown=default is needed here: https://groups.google.com/g/golang-nuts/c/LZbM2WlZoJM
-COPY --chown=default . /app
+# See why root is needed here: https://groups.google.com/g/golang-nuts/c/LZbM2WlZoJM
+USER root
+COPY . /app
 WORKDIR /app
 RUN go build -o main .
 
